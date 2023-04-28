@@ -61,7 +61,8 @@ foreach($images as $index => $imageName){
         $textY = $MAX_SIZE / 2 + $yStart;
         $textX = 50;
 
-        drawImageId($index, $imageIM, $textX, $textY);
+        $start = $index + (int) $input['startIndex'];
+        drawImageId($start, $imageIM, $textX, $textY);
     }
 
     $imageIM->writeImage(__DIR__ . DIRECTORY_SEPARATOR . 'target' . DIRECTORY_SEPARATOR . 'wat_' . $imageName);
