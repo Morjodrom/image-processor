@@ -11,6 +11,12 @@ if (!isset($input['preserve'])) {
     clearFolder('target');
 }
 
+if (isset($input['selling'])) {
+    $input['opacity'] = 1;
+}
+$watermarkOpacity = ((float) $input['opacity']) ?: .5;
+$waterMarkIM->evaluateImage(\Imagick::EVALUATE_MULTIPLY, $watermarkOpacity, \Imagick::CHANNEL_ALPHA);
+
 
 /**
  * @param $index
@@ -23,14 +29,14 @@ if (!isset($input['preserve'])) {
  */
 function drawImageId($index, Imagick $imageIM, int $textX, $textY): void
 {
-    $draw = new ImagickDraw();
     $text = (chr($index + 65)) . ($index + 1);
+    $draw = new \ImagickDraw();
+    $draw->setFont(__DIR__ . '/assets/Foglihtenno07-8qnn.otf');
     $draw->setFontSize(100);
-    $draw->setFillColor(new ImagickPixel('black'));
-    $imageIM->annotateImage($draw, $textX + 2, $textY + 2, 0, $text);
-    $imageIM->annotateImage($draw, $textX - 2, $textY - 2, 0, $text);
-    $draw->setFontSize(100);
-    $draw->setFillColor(new ImagickPixel('white'));
+    $draw->setFillColor('rgba(255, 255, 255, 0.15)');
+    $draw->setStrokeColor('black');
+    $draw->setStrokeWidth(2);
+
     $imageIM->annotateImage($draw, $textX, $textY, 0, $text);
 }
 
