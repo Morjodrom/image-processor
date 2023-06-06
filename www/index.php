@@ -13,7 +13,7 @@ if (empty($input)) {
     return;
 }
 
-if (!isset($input['preserve'])) {
+if (!isset($input['preserve']) || $input['preserve'] === '0') {
     clearFolder('target');
 }
 
@@ -65,8 +65,8 @@ foreach($images as $index => $imageName){
         for($i = 0; $i < $iterationsMax; $i++){
             $x = $waterMarkX + ($offsetX * $i);
             $y = $offsetY * $i + $yStart;
-            $imageIM->compositeImage($waterMarkIM, IMagick::COMPOSITE_OVER, $x, $y);
-            $imageIM->compositeImage($waterMarkIM, IMagick::COMPOSITE_OVER, $x, $maxSize + $y);
+            $imageIM->compositeImage($waterMarkIM, IMagick::COMPOSITE_OVER, (int) $x, (int) $y);
+            $imageIM->compositeImage($waterMarkIM, IMagick::COMPOSITE_OVER, (int) $x, (int) ($maxSize + $y));
         }
 
 
